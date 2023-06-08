@@ -10,7 +10,7 @@ export default function Login() {
   return (
     <div>
       <div className='bg-orange'>
-        <div className='mx-auto max-w-7xl px-4'>
+        <div className='container'>
           <div className='grid grid-cols-1 py-20  lg:grid-cols-5 lg:py-32 lg:pr-10'>
             <div className='lg:col-span-2 lg:col-start-4'>
               <form className='bg-white p-10 shadow-sm'>
@@ -30,6 +30,7 @@ export default function Login() {
                     name='password'
                     className='focus: focus: w-full rounded-sm border border-gray-300 p-3 outline-none focus:border-gray-500 focus:shadow-sm'
                     placeholder='Password'
+                    autoComplete='on'
                   />
                   <div className='text-sm.min-h-[1rem] mt-1 text-red-600'></div>
                 </div>
