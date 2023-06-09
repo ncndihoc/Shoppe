@@ -6,7 +6,7 @@ export default function Login() {
     register,
     handleSubmit,
     formState: { errors }
-  } = useForm()
+  } = useForm({})
   return (
     <div>
       <div className='bg-orange'>

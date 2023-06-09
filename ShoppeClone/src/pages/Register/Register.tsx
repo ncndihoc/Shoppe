@@ -1,30 +1,32 @@
 import { Link } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
-import { getRules } from 'src/utils/rules'
 import Input from 'src/components/Input'
+import { yupResolver } from '@hookform/resolvers/yup'
+import { schema, Schema } from 'src/utils/rules'
+import { useMutation } from '@tanstack/react-query'
+import { registerAccount } from 'src/apis/auth.api'
+import { omit } from 'lodash'
 
-interface FormData {
-  email: string
-  password: string
-  'confirm-password': string
-}
+type FormData = Schema
 
 export default function Register() {
   const {
     register,
     handleSubmit,
-    getValues,
     formState: { errors }
-  } = useForm<FormData>()
-  const rules = getRules(getValues)
-  const onSubmit = handleSubmit(
-    (data) => {
-      console.log(data)
-    },
-    (data) => {
-      const password = getValues('password')
-    }
-  )
+  } = useForm<FormData>({ resolver: yupResolver(schema) })
+
+  const registerAccountMutation = useMutation({
+    mutationFn: (body: Omit<FormData, 'confirm_password'>) => registerAccount(body)
+  })
+  const onSubmit = handleSubmit((data) => {
+    const body = omit(data, ['confirm_password'])
+    registerAccountMutation.mutate(body, {
+      onSuccess: (data) => {
+        console.log(data)
+      }
+    })
+  })
   return (
     <div>
       <div className='bg-orange'>
@@ -34,32 +36,30 @@ export default function Register() {
               <form className='bg-white p-10 shadow-sm' onSubmit={onSubmit} noValidate>
                 <div className='text-2xl'>Dang ki</div>
                 <Input
-                  type='email'
-                  placeholder='Email'
                   name='email'
-                  errorMessages={errors.email?.message}
                   register={register}
-                  rules={rules.email}
+                  type='email'
                   className='mt-8'
+                  errorMessages={errors.email?.message}
+                  placeholder='Email'
                 />
                 <Input
-                  type='password'
-                  placeholder='Password'
                   name='password'
-                  errorMessages={errors.password?.message}
                   register={register}
-                  rules={rules.password}
-                  className='mt-4'
+                  type='password'
+                  className='mt-2'
+                  errorMessages={errors.password?.message}
+                  placeholder='Password'
                   autoComplete='on'
                 />
+
                 <Input
-                  type='password'
-                  placeholder='Confirm password'
-                  name='confirm-password'
-                  errorMessages={errors['confirm-password']?.message}
+                  name='confirm_password'
                   register={register}
-                  rules={rules.confirm_password}
-                  className='mt-4'
+                  type='password'
+                  className='mt-2'
+                  errorMessages={errors.confirm_password?.message}
+                  placeholder='Confirm Password'
                   autoComplete='on'
                 />
                 <div className='mt-4'>
