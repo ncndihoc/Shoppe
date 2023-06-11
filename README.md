@@ -23,7 +23,7 @@ This is a Shopee clone project built using TypeScript. It aims to replicate some
 - **Multilingual Support**: react-i18next
 - **SEO Support**: React Helmet
 - **Component Modeling**: Storybook
-- **Unit Testing**: [Please specify the unit testing framework]
+- **Unit Testing**
 
 ## Getting Started
 
@@ -32,16 +32,3 @@ This is a Shopee clone project built using TypeScript. It aims to replicate some
 3. Start the development server: `npm run dev`
 4. Open your browser and navigate to `http://localhost:3000`
 
-## Contributing
-
-Contributions are welcome! If you want to contribute to this project, please follow these steps:
-
-1. Fork the repository
-2. Create a new branch: `git checkout -b feature/your-feature-name`
-3. Commit your changes: `git commit -am 'Add some feature'`
-4. Push to the branch: `git push origin feature/your-feature-name`
-5. Submit a pull request
-
-## License
-
-This project is licensed under the [MIT License](LICENSE).
